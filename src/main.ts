@@ -11,6 +11,9 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+const appUserDataPath = app.getPath('userData');
+info(appUserDataPath);
+
 
 const createWindow = () => {
 
