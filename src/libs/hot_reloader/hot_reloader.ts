@@ -20,7 +20,7 @@ class Reloader {
 
 /**
  * Move the window where it was on hot reload.
- * @param mainWindow The main electron window.
+ * @param mainWindow The electron window.
  */
 export function restoreWindowPosition(mainWindow: BrowserWindow): void {
   const reloaderExists = fs.existsSync(reloaderDir);
@@ -39,8 +39,11 @@ export function restoreWindowPosition(mainWindow: BrowserWindow): void {
   mainWindow.setPosition(reloader.x, reloader.y);
 }
 
+/**
+ * Save the window position for the next hot reload.
+ * @param mainWindow The electron window.
+ */
 export function storeWindowPosition(mainWindow: BrowserWindow): void {
-
   // Attempt to cram the position into a JSON object.
   let pos: number[] = mainWindow.getPosition();
   try {
