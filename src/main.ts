@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import { overrideErrorHandling } from './libs/catcher/catcher';
 import { info } from './libs/utility/info';
+import { restoreWindowPosition, storeWindowPosition } from './libs/hot_reloader/hot_reloader';
 
 // Stop electron from popping up a dialog window and print to terminal instead.
 overrideErrorHandling();
@@ -19,7 +20,7 @@ const createWindow = () => {
 
 
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  const mainWindow: BrowserWindow = new BrowserWindow({
     width: 800,
     height: 600,
     center: false,
@@ -30,6 +31,9 @@ const createWindow = () => {
     show: false
   });
 
+  // Turn this off on releases or it could get very annoying.
+  restoreWindowPosition(mainWindow);
+
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
@@ -39,7 +43,8 @@ const createWindow = () => {
 
 
   mainWindow.on("close", () => {
-    info(mainWindow.getPosition());
+    // Turn this off on releases or it could get very annoying.
+    storeWindowPosition(mainWindow);
   });
 
   // Open the DevTools.
