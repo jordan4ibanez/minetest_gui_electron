@@ -27,10 +27,12 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+    icon:"./icon/minetest_server.png",
     //! Comment this out when testing UI.
     show: false
   });
 
+  
   // Turn this off on releases or it could get very annoying.
   restoreWindowPosition(mainWindow);
 
